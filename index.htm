@@ -24,6 +24,7 @@
       width: 100%;
     }
   </style>
+  img
 </head>
 
 <body>
@@ -41,9 +42,9 @@
       Mapbox Satellite Streets: mapbox://styles/mapbox/satellite-streets-v12
       Mapbox Streets: mapbox://styles/mapbox/streets-v12
       */
-      style: 'mapbox://styles/mapbox/outdoors-v12',
+      style: 'mapbox://styles/mapbox/satellite-streets-v12',
       center: [-121.403732, 40.492392],
-      zoom: 5
+      zoom: 7
     });
 
     map.on('load', () => {
@@ -61,6 +62,7 @@
               "properties": {
                 'name': "Golden Gate Bridge",
                 'description': "I went in a school trip here",
+              'image': "img/bridge.png"
               }
             },
             {
@@ -72,6 +74,19 @@
               "properties": {
                 'name': "Oakland Zoo",
                 'description': "I went with my family here",
+              'image': "img/zoo.png",
+              }
+            },
+            {
+              'type': 'Feature',
+              'geometry': {
+                'type': 'Point',
+                'coordinates': [-122.39041491607499, 37.909573824827824]
+              },
+              "properties": {
+                'name': "Le pier",
+                'description': "A really cool pier!",
+                'image': "img/pier.png",
               }
             },
             {
@@ -83,7 +98,9 @@
               "properties": {
                 'name': "my school",
                 'description': "I go study here",
+                'image': "img/CCPA.png",
               }
+              
             }
           ]
         }
@@ -107,12 +124,12 @@
           const coordinates = e.feature.geometry.coordinates.slice();
           const name = e.feature.properties.name;
           const description = e.feature.properties.description;
-          // const image = e.feature.properties.image;
+          const image = e.feature.properties.image;
 
           new mapboxgl.Popup()
             .setLngLat(coordinates)
             .setHTML("<strong>" + name + "</strong><br/>" + description)
-            // .setHTML("<img src='" + image + "'><br><strong>" + name + "</strong><br/>" + description)
+            .setHTML("<img src='" + image + "'><br><strong>" + name + "</strong><br/>" + description)
             .addTo(map);
         }
       });
